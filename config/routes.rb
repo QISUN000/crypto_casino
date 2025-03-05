@@ -14,4 +14,12 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#about'
   # Defines the root path route ("/")
   # root "posts#index"
+
+  resources :cryptocurrencies
+  resources :categories
+  resources :gamblers
+  resources :casino_tables
+  resources :bets
+
+  get 'search', to: 'search#index'
 end
