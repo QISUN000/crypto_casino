@@ -1,0 +1,48 @@
+<div class="container">
+  <h1 class="my-4">Cryptocurrency Games</h1>
+  
+  <div class="card">
+    <div class="card-header bg-dark text-white">
+      <h5 class="mb-0">Available Games</h5>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Symbol</th>
+              <th>Price (USD)</th>
+              <th>24h Change</th>
+              <th>Market Cap</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @cryptocurrencies.each do |crypto| %>
+              <tr>
+                <td><%= crypto.rank %></td>
+                <td>
+                  <% if crypto.logo_url.present? %>
+                    <img src="<%= crypto.logo_url %>" alt="<%= crypto.name %>" height="20" class="me-2">
+                  <% end %>
+                  <%= crypto.name %>
+                </td>
+                <td><%= crypto.symbol %></td>
+                <td><%= number_to_currency(crypto.current_price_usd) %></td>
+                <td class="<%= crypto.price_change_24h.to_f > 0 ? 'text-success' : 'text-danger' %>">
+                  <%= number_to_percentage(crypto.price_change_24h, precision: 2) %>
+                </td>
+                <td><%= number_to_human(crypto.market_cap_usd, precision: 2) %></td>
+                <td>
+                  <%= link_to "View", cryptocurrency_path(crypto), class: "btn btn-sm btn-outline-dark" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

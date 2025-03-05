@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "categories/index"
+  get "categories/show"
+  get "cryptocurrencies/index"
+  get "cryptocurrencies/show"
   get "pages/home"
   get "pages/about"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

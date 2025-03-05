@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="my-4">
+    <a href="<%= cryptocurrencies_path %>" class="btn btn-outline-dark mb-3">
+      &larr; Back to All Cryptocurrencies
+    </a>
+    
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        <div class="d-flex align-items-center">
+          <% if @cryptocurrency.logo_url.present? %>
+            <img src="<%= @cryptocurrency.logo_url %>" alt="<%= @cryptocurrency.name %>" height="40" class="me-3">
+          <% end %>
+          <h2 class="mb-0"><%= @cryptocurrency.name %> (<%= @cryptocurrency.symbol %>)</h2>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Current Stats</h4>
+            <table class="table">
+              <tr>
+                <th>Price:</th>
+                <td><%= number_to_currency(@cryptocurrency.current_price_usd) %></td>
+              </tr>
+              <tr>
+                <th>24h Change:</th>
+                <td class="<%= @cryptocurrency.price_change_24h.to_f > 0 ? 'text-success' : 'text-danger' %>">
+                  <%= number_to_percentage(@cryptocurrency.price_change_24h, precision: 2) %>
+                </td>
+              </tr>
+              <tr>
+                <th>Market Cap:</th>
+                <td><%= number_to_human(@cryptocurrency.market_cap_usd, precision: 2) %></td>
+              </tr>
+              <tr>
+                <th>24h Volume:</th>
+                <td><%= number_to_human(@cryptocurrency.volume_24h_usd, precision: 2) %></td>
+              </tr>
+              <tr>
+                <th>Rank:</th>
+                <td>#<%= @cryptocurrency.rank %></td>
+              </tr>
+              <tr>
+                <th>Last Updated:</th>
+                <td><%= @cryptocurrency.last_updated ? time_ago_in_words(@cryptocurrency.last_updated) + " ago" : "Unknown" %></td>
+              </tr>
+            </table>
+          </div>
+          
+          <div class="col-md-6">
+            <h4>Categories</h4>
+            <% if @categories.any? %>
+              <div class="mb-3">
+                <% @categories.each do |category| %>
+                  <span class="badge bg-warning text-dark me-1 mb-1"><%= category.name %></span>
+                <% end %>
+              </div>
+            <% else %>
+              <p>No categories assigned</p>
+            <% end %>
+            
+            <h4>Description</h4>
+            <p><%= @cryptocurrency.description %></p>
+            
+            <% if @cryptocurrency.website_url.present? %>
+              <a href="<%= @cryptocurrency.website_url %>" target="_blank" class="btn btn-outline-primary mt-2">
+                Visit Website
+              </a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <h4>Categories</h4>
+<% if @categories.any? %>
+  <div class="mb-3">
+    <% @categories.each do |category| %>
+      <a href="<%= category_path(category) %>" class="badge bg-warning text-dark me-1 mb-1 text-decoration-none">
+        <%= category.name %>
+      </a>
+    <% end %>
+  </div>
+<% else %>
+  <p>No categories assigned</p>
+<% end %>
+
+  </div>
+</div>
