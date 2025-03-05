@@ -1,2 +1,98 @@
-<h1>Search#index</h1>
-<p>Find me in app/views/search/index.html.erb</p>
+<div class="container">
+  <h1 class="my-4">Search Results</h1>
+  
+  <div class="card mb-4">
+    <div class="card-body">
+      <form action="<%= search_path %>" method="get">
+        <div class="row g-3">
+          <div class="col-md-8">
+            <input type="text" name="q" class="form-control" placeholder="Search cryptocurrencies..." value="<%= @query %>" required>
+          </div>
+          <div class="col-md-3">
+            <select name="category" class="form-select">
+              <option value="">All Categories</option>
+              <% @categories.each do |category| %>
+                <option value="<%= category.id %>" <%= @category_id.to_i == category.id ? 'selected' : '' %>>
+                  <%= category.name %>
+                </option>
+              <% end %>
+            </select>
+          </div>
+          <div class="col-md-1 d-grid">
+            <button type="submit" class="btn btn-dark">Search</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <% if @query.present? %>
+    <div class="card">
+      <div class="card-header bg-dark text-white">
+        <h5 class="mb-0">
+          <% if @cryptocurrencies.any? %>
+            Found <%= pluralize(@cryptocurrencies.count, 'result') %> for "<%= @query %>"
+            <% if @category %>
+              in category "<%= @category.name %>"
+            <% end %>
+          <% else %>
+            No results found for "<%= @query %>"
+            <% if @category %>
+              in category "<%= @category.name %>"
+            <% end %>
+          <% end %>
+        </h5>
+      </div>
+      
+      <% if @cryptocurrencies.any? %>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Symbol</th>
+                  <th>Price (USD)</th>
+                  <th>24h Change</th>
+                  <th>Categories</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @cryptocurrencies.each do |crypto| %>
+                  <tr>
+                    <td><%= crypto.rank %></td>
+                    <td>
+                      <% if crypto.logo_url.present? %>
+                        <img src="<%= crypto.logo_url %>" alt="<%= crypto.name %>" height="20" class="me-2">
+                      <% end %>
+                      <%= crypto.name %>
+                    </td>
+                    <td><%= crypto.symbol %></td>
+                    <td><%= number_to_currency(crypto.current_price_usd) %></td>
+                    <td class="<%= crypto.price_change_24h.to_f > 0 ? 'text-success' : 'text-danger' %>">
+                      <%= number_to_percentage(crypto.price_change_24h, precision: 2) %>
+                    </td>
+                    <td>
+                      <% crypto.categories.each do |category| %>
+                        <span class="badge bg-warning text-dark me-1"><%= category.name %></span>
+                      <% end %>
+                    </td>
+                    <td>
+                      <%= link_to "View", cryptocurrency_path(crypto), class: "btn btn-sm btn-outline-dark" %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      <% else %>
+        <div class="card-body">
+          <p>Try a different search term or browse our <a href="<%= cryptocurrencies_path %>">cryptocurrency list</a>.</p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

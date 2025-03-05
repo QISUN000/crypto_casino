@@ -39,6 +39,20 @@
           </a>
         </li>
       </ul>
+      
+
+      <form class="d-flex" action="<%= search_path %>" method="get">
+  <div class="input-group">
+    <select name="category" class="form-select bg-dark text-white border-secondary" style="max-width: 130px;">
+      <option value="">All Categories</option>
+      <% Category.all.each do |category| %>
+        <option value="<%= category.id %>"><%= category.name %></option>
+      <% end %>
+    </select>
+    <input class="form-control bg-dark text-white border-secondary" type="search" name="q" placeholder="Search..." aria-label="Search">
+    <button class="btn btn-outline-warning" type="submit">Search</button>
+  </div>
+</form>
     </div>
   </div>
 </nav>
