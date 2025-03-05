@@ -12,7 +12,6 @@ require 'faker'
 require 'csv'
 require 'json'
 
-puts "Clearing existing data..."
 Bet.destroy_all
 CasinoTable.destroy_all
 Gambler.destroy_all
@@ -44,13 +43,17 @@ end
 
 # Importing cryptocurrency categories from CSV
 categories_csv_path = Rails.root.join('db', 'data', 'crypto_categories.csv')
-CSV.foreach(categories_csv_path, headers: true) do |row|
-  Category.create!(
-    name: row['name'],
-    description: row['description']
-  )
+if File.exist?(categories_csv_path)
+  CSV.foreach(categories_csv_path, headers: true) do |row|
+    Category.create!(
+      name: row['name'],
+      description: row['description']
+    )
+  end
+  puts "Imported #{Category.count} cryptocurrency categories"
+else
+  puts "CSV file not found at #{categories_csv_path}"
 end
-puts "Imported #{Category.count} cryptocurrency categories"
 
 categories = Category.all
 
@@ -72,3 +75,48 @@ Cryptocurrency.all.each do |crypto|
 end
 
 # Generating gamblers using Faker
+50.times do
+  Gambler.create!(
+    name: Faker::Name.name,
+    email: Faker::Internet.unique.email,
+    bio: Faker::Lorem.paragraph(sentence_count: 2),
+    join_date: Faker::Date.between(from: 2.years.ago, to: Date.today),
+    profile_image_url: "https://randomuser.me/api/portraits/#{['men', 'women'].sample}/#{rand(1..99)}.jpg"
+  )
+end
+
+# Create casino tables and bets
+puts "Creating casino tables and bets..."
+Gambler.all.each do |gambler|
+  rand(1..3).times do
+    table = CasinoTable.create!(
+      gambler: gambler,
+      name: "#{['Golden', 'Silver', 'Diamond', 'Platinum', 'Ruby', 'Emerald'].sample} #{['Stakes', 'Chips', 'Deck', 'Wheel'].sample}",
+      description: Faker::Lorem.sentence(word_count: 10)
+    )
+    
+    # Each casino table has 3-10 bets
+    rand(3..10).times do
+      crypto = Cryptocurrency.all.sample
+      bet_time = Faker::Date.between(from: 1.year.ago, to: Date.today)
+      
+      Bet.create!(
+        casino_table: table,
+        cryptocurrency: crypto,
+        bet_type: ['place_bet', 'cash_out'].sample,
+        amount: rand(0.1..10.0).round(4),
+        odds: crypto.current_price_usd * rand(0.8..1.2), # Random odds around current price
+        bet_time: bet_time,
+        notes: rand < 0.3 ? Faker::Lorem.sentence : nil
+      )
+    end
+  end
+end
+
+puts "Seed completed successfully!"
+puts "Created #{Cryptocurrency.count} cryptocurrencies from Coinranking API"
+puts "Created #{Category.count} categories from CSV"
+puts "Created #{Gambler.count} gamblers with Faker"
+puts "Created #{CasinoTable.count} casino tables"
+puts "Created #{Bet.count} bets"
+puts "Total rows in database: #{Cryptocurrency.count + Category.count + CryptocurrencyCategory.count + Gambler.count + CasinoTable.count + Bet.count}"

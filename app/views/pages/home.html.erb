@@ -1,0 +1,47 @@
+<div class="container mt-5">
+  <div class="jumbotron bg-dark text-white">
+    <h1 class="display-4">Welcome to Crypto Casino!</h1>
+    <p class="lead">The premier destination for cryptocurrency tracking with a casino twist.</p>
+    <hr class="my-4">
+    <p>Place your bets on the most exciting cryptocurrencies and track your wins and losses!</p>
+    <a class="btn btn-warning btn-lg" href="<%= cryptocurrencies_path %>" role="button">Explore Crypto Games</a>
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+          <h5 class="mb-0">Top Cryptocurrencies</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Explore the most valuable cryptocurrencies in the market.</p>
+          <a href="<%= cryptocurrencies_path %>" class="btn btn-outline-dark">View Games</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+          <h5 class="mb-0">Game Categories</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Browse cryptocurrencies by their category type.</p>
+          <a href="<%= categories_path %>" class="btn btn-outline-dark">View Categories</a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-4">
+      <div class="card mb-4">
+        <div class="card-header bg-dark text-white">
+          <h5 class="mb-0">Casino Tables</h5>
+        </div>
+        <div class="card-body">
+          <p class="card-text">Check out the different casino tables where bets are placed.</p>
+          <a href="<%= casino_tables_path %>" class="btn btn-outline-dark">View Tables</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
