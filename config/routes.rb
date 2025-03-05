@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  get "search/index"
+  get "casino_tables/index"
+  get "casino_tables/show"
+  get "gamblers/index"
+  get "gamblers/show"
   get "categories/index"
   get "categories/show"
   get "cryptocurrencies/index"

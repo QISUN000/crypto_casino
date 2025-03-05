@@ -1,0 +1,101 @@
+<div class="container">
+  <div class="my-4">
+    <a href="<%= casino_tables_path %>" class="btn btn-outline-dark mb-3">
+      &larr; Back to All Tables
+    </a>
+    
+    <div class="card mb-4">
+      <div class="card-header bg-dark text-white">
+        <h2 class="mb-0"><%= @casino_table.name %></h2>
+      </div>
+      <div class="card-body">
+        <p class="lead"><%= @casino_table.description %></p>
+        <p>
+          <strong>Managed by:</strong> 
+          <%= link_to @gambler.name, gambler_path(@gambler) %>
+        </p>
+        <p>
+          <strong>Created:</strong> 
+          <%= @casino_table.created_at.strftime("%B %d, %Y at %H:%M") %>
+        </p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card mb-4">
+          <div class="card-header bg-warning text-dark">
+            <h4 class="mb-0">Betting History</h4>
+          </div>
+          <div class="card-body">
+            <% if @bets.any? %>
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Type</th>
+                      <th>Cryptocurrency</th>
+                      <th>Amount</th>
+                      <th>Odds</th>
+                      <th>Total Value</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @bets.each do |bet| %>
+                      <tr>
+                        <td><%= bet.bet_time.strftime("%b %d, %Y") %></td>
+                        <td>
+                          <span class="badge <%= bet.bet_type == 'place_bet' ? 'bg-success' : 'bg-danger' %>">
+                            <%= bet.bet_type.humanize %>
+                          </span>
+                        </td>
+                        <td>
+                          <%= link_to bet.cryptocurrency.name, cryptocurrency_path(bet.cryptocurrency) %>
+                        </td>
+                        <td><%= number_with_precision(bet.amount, precision: 4) %></td>
+                        <td><%= number_to_currency(bet.odds) %></td>
+                        <td><%= number_to_currency(bet.total_value) %></td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            <% else %>
+              <p>No bets have been placed at this table yet.</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-dark text-white">
+            <h4 class="mb-0">Cryptocurrencies Played</h4>
+          </div>
+          <div class="card-body">
+            <% if @cryptocurrencies.any? %>
+              <ul class="list-group">
+                <% @cryptocurrencies.each do |crypto| %>
+                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                      <% if crypto.logo_url.present? %>
+                        <img src="<%= crypto.logo_url %>" alt="<%= crypto.name %>" height="20" class="me-2">
+                      <% end %>
+                      <%= link_to crypto.name, cryptocurrency_path(crypto) %>
+                    </div>
+                    <span class="badge bg-primary rounded-pill">
+                      <%= @casino_table.bets.where(cryptocurrency: crypto).count %> bets
+                    </span>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p>No cryptocurrencies have been played at this table.</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

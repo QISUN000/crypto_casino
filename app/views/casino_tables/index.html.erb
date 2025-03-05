@@ -1,0 +1,26 @@
+<div class="container">
+  <h1 class="my-4">Casino Tables</h1>
+  
+  <div class="row">
+    <% @casino_tables.each do |table| %>
+      <div class="col-md-6 mb-4">
+        <div class="card h-100">
+          <div class="card-header bg-dark text-white">
+            <h5 class="mb-0"><%= table.name %></h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text"><%= table.description %></p>
+            <p class="text-muted">
+              <small>Managed by: <%= link_to table.gambler.name, gambler_path(table.gambler) %></small><br>
+              <small><%= pluralize(table.bets.count, 'bet') %> placed</small><br>
+              <small>Created: <%= time_ago_in_words(table.created_at) %> ago</small>
+            </p>
+          </div>
+          <div class="card-footer">
+            <%= link_to "View Table", casino_table_path(table), class: "btn btn-outline-dark" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

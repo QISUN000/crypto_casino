@@ -24,6 +24,16 @@
           </a>
         </li>
         <li class="nav-item">
+          <a class="nav-link <%= controller_name == 'gamblers' ? 'active' : '' %>" href="<%= gamblers_path %>">
+            Gamblers
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= controller_name == 'casino_tables' ? 'active' : '' %>" href="<%= casino_tables_path %>">
+            Casino Tables
+          </a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link <%= current_page?(about_path) ? 'active' : '' %>" href="<%= about_path %>">
             About
           </a>

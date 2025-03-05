@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="my-4">
+    <a href="<%= gamblers_path %>" class="btn btn-outline-dark mb-3">
+      &larr; Back to All Gamblers
+    </a>
+    
+    <div class="card mb-4">
+      <div class="card-header bg-dark text-white">
+        <div class="d-flex align-items-center">
+          <% if @gambler.profile_image_url.present? %>
+            <img src="<%= @gambler.profile_image_url %>" alt="<%= @gambler.name %>" class="rounded-circle me-3" width="80" height="80">
+          <% end %>
+          <div>
+            <h2 class="mb-0"><%= @gambler.name %></h2>
+            <p class="text-muted mb-0">Member since <%= @gambler.join_date.strftime("%B %d, %Y") %></p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <h4>About</h4>
+        <p><%= @gambler.bio %></p>
+        
+        <h4>Contact</h4>
+        <p><i class="fas fa-envelope me-2"></i> <%= @gambler.email %></p>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-header bg-warning text-dark">
+        <h4 class="mb-0"><%= @gambler.name %>'s Casino Tables</h4>
+      </div>
+      <div class="card-body">
+        <% if @casino_tables.any? %>
+          <div class="row">
+            <% @casino_tables.each do |table| %>
+              <div class="col-md-6 mb-3">
+                <div class="card h-100">
+                  <div class="card-header">
+                    <h5 class="mb-0"><%= table.name %></h5>
+                  </div>
+                  <div class="card-body">
+                    <p><%= table.description %></p>
+                    <p class="text-muted">
+                      <small><%= pluralize(table.bets.count, 'bet') %> placed</small><br>
+                      <small>Created: <%= time_ago_in_words(table.created_at) %> ago</small>
+                    </p>
+                  </div>
+                  <div class="card-footer">
+                    <%= link_to "View Table", casino_table_path(table), class: "btn btn-sm btn-outline-dark" %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% else %>
+          <p>This gambler hasn't created any casino tables yet.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="container">
+  <h1 class="my-4">Casino Gamblers</h1>
+  
+  <div class="row">
+    <% @gamblers.each do |gambler| %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-header bg-dark text-white text-center">
+            <% if gambler.profile_image_url.present? %>
+              <img src="<%= gambler.profile_image_url %>" alt="<%= gambler.name %>" class="rounded-circle mb-2" width="100" height="100">
+            <% end %>
+            <h5 class="mb-0"><%= gambler.name %></h5>
+          </div>
+          <div class="card-body">
+            <p class="card-text"><%= truncate(gambler.bio, length: 100) %></p>
+            <p class="text-muted">
+              <small>Member since: <%= gambler.join_date.strftime("%B %d, %Y") %></small><br>
+              <small><%= pluralize(gambler.casino_tables.count, 'table') %> managed</small>
+            </p>
+          </div>
+          <div class="card-footer">
+            <%= link_to "View Profile", gambler_path(gambler), class: "btn btn-outline-dark" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -49,16 +49,18 @@
           </div>
           
           <div class="col-md-6">
-            <h4>Categories</h4>
-            <% if @categories.any? %>
-              <div class="mb-3">
-                <% @categories.each do |category| %>
-                  <span class="badge bg-warning text-dark me-1 mb-1"><%= category.name %></span>
-                <% end %>
-              </div>
-            <% else %>
-              <p>No categories assigned</p>
-            <% end %>
+              <h4>Categories</h4>
+<% if @categories.any? %>
+  <div class="mb-3">
+    <% @categories.each do |category| %>
+      <a href="<%= category_path(category) %>" class="badge bg-warning text-dark me-1 mb-1 text-decoration-none">
+        <%= category.name %>
+      </a>
+    <% end %>
+  </div>
+<% else %>
+  <p>No categories assigned</p>
+<% end %>
             
             <h4>Description</h4>
             <p><%= @cryptocurrency.description %></p>
@@ -72,18 +74,7 @@
         </div>
       </div>
     </div>
-    <h4>Categories</h4>
-<% if @categories.any? %>
-  <div class="mb-3">
-    <% @categories.each do |category| %>
-      <a href="<%= category_path(category) %>" class="badge bg-warning text-dark me-1 mb-1 text-decoration-none">
-        <%= category.name %>
-      </a>
-    <% end %>
-  </div>
-<% else %>
-  <p>No categories assigned</p>
-<% end %>
+ 
 
   </div>
 </div>
