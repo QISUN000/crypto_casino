@@ -1,2 +1,86 @@
-<h1>Pages#about</h1>
-<p>Find me in app/views/pages/about.html.erb</p>
+<div class="container my-5">
+  <h1>About Crypto Casino</h1>
+  
+  <div class="card my-4">
+    <div class="card-header bg-dark text-white">
+      <h2 class="mb-0">Our Data Sources</h2>
+    </div>
+    <div class="card-body">
+      <p class="lead">This application uses data from multiple sources:</p>
+      
+      <div class="row mt-4">
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <div class="card-header bg-warning">
+              <h5 class="mb-0">Coinranking API</h5>
+            </div>
+            <div class="card-body">
+              <p>We fetch real-time cryptocurrency data including:</p>
+              <ul>
+                <li>Current prices and market caps</li>
+                <li>24-hour trading volumes</li>
+                <li>Price change percentages</li>
+                <li>Basic cryptocurrency information</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <div class="card-header bg-warning">
+              <h5 class="mb-0">Categories CSV Dataset</h5>
+            </div>
+            <div class="card-body">
+              <p>We maintain a dataset of cryptocurrency categories to provide context and classification.</p>
+              <p>Each category has:</p>
+              <ul>
+                <li>Name</li>
+                <li>Description</li>
+                <li>Associated cryptocurrencies</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="card mb-3">
+            <div class="card-header bg-warning">
+              <h5 class="mb-0">User and Transaction Data</h5>
+            </div>
+            <div class="card-body">
+              <p>For demonstration purposes, this application includes generated:</p>
+              <ul>
+                <li>Gambler profiles</li>
+                <li>Casino tables</li>
+                <li>Betting histories</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card my-4">
+    <div class="card-header bg-dark text-white">
+      <h2 class="mb-0">Database Structure</h2>
+    </div>
+    <div class="card-body">
+      <p>Our application uses the following database structure:</p>
+      
+      <div class="text-center my-4">
+  <%= image_tag 'ERD.pdf', alt: 'Database ERD', class: 'img-fluid border' %>
+  <p class="text-muted mt-2">Entity Relationship Diagram of the Crypto Casino Database</p>
+</div>
+      
+      <h3>Key Relationships:</h3>
+      <ul>
+        <li><strong>Gamblers have many Casino Tables</strong> - Each gambler can create multiple investment portfolios</li>
+        <li><strong>Casino Tables have many Bets</strong> - Each table tracks multiple buy/sell bets</li>
+        <li><strong>Cryptocurrencies belong to many Categories</strong> - Each cryptocurrency can be classified in multiple categories</li>
+        <li><strong>Bets belong to a Casino Table and a Cryptocurrency</strong> - Each bet records a transaction involving a specific cryptocurrency at a specific table</li>
+      </ul>
+    </div>
+  </div>
+</div>
