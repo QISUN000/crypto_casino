@@ -68,3 +68,4 @@ end
 
 gem 'httparty'
 gem 'faker'
+gem 'kaminari'
