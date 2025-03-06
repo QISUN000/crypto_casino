@@ -61,7 +61,36 @@
       </div>
     </div>
   </div>
-  
+
+
+ <div class="card my-4">
+    <div class="card-header bg-dark text-white">
+      <h2 class="mb-0">Visit Our Casino</h2>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <p>While our crypto betting happens online, our physical headquarters is located in Las Vegas, the gambling capital of the world. Feel free to visit us at our office:</p>
+          
+          <address>
+            <strong>Crypto Casino Headquarters</strong><br>
+            3570 Las Vegas Boulevard South<br>
+            Las Vegas, NV 89109<br>
+            <br>
+            <i class="fas fa-phone me-2"></i> (555) 123-4567<br>
+            <i class="fas fa-envelope me-2"></i> info@cryptocasino.example
+          </address>
+          
+          <p>Our team of crypto gambling experts is available 24/7 to assist with any questions about your digital bets!</p>
+        </div>
+        <div class="col-md-6">
+          <!-- Map will be displayed here -->
+          <div id="casino-map" style="width: 100%; height: 300px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="card my-4">
     <div class="card-header bg-dark text-white">
       <h2 class="mb-0">Database Structure</h2>
@@ -84,3 +113,38 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Las Vegas Strip coordinates
+    const casinoLocation = { lat: 36.1147, lng: -115.1728 };
+    
+    // Initialize the map
+    const map = new google.maps.Map(document.getElementById('casino-map'), {
+      center: casinoLocation,
+      zoom: 15,
+    });
+    
+    // Add marker for the casino
+    const marker = new google.maps.Marker({
+      position: casinoLocation,
+      map: map,
+      title: "Crypto Casino Headquarters",
+      animation: google.maps.Animation.DROP
+    });
+    
+    // Add info window
+    const infoWindow = new google.maps.InfoWindow({
+      content: `
+        <div style="padding: 10px;">
+          <h5>Crypto Casino</h5>
+          <p>Las Vegas Strip's premier cryptocurrency gambling destination</p>
+        </div>
+      `
+    });
+    
+    marker.addListener('click', function() {
+      infoWindow.open(map, marker);
+    });
+  });
+</script>
