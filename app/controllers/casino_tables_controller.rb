@@ -1,6 +1,6 @@
 class CasinoTablesController < ApplicationController
   def index
-    @casino_tables = CasinoTable.all.order(created_at: :desc)
+    @casino_tables = CasinoTable.all.order(created_at: :desc).page(params[:page]).per(10)
   end
 
   def show

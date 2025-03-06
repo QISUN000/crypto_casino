@@ -16,9 +16,9 @@ class SearchController < ApplicationController
         end
       end
       
-      # Apply text search
+     
       @cryptocurrencies = @cryptocurrencies.where(
-        "name ILIKE ? OR symbol ILIKE ? OR description ILIKE ?", 
+        "cryptocurrencies.name ILIKE ? OR cryptocurrencies.symbol ILIKE ? OR cryptocurrencies.description ILIKE ?", 
         "%#{@query}%", "%#{@query}%", "%#{@query}%"
       )
     else

@@ -1,6 +1,6 @@
 class GamblersController < ApplicationController
   def index
-    @gamblers = Gambler.all.order(join_date: :desc)
+    @gamblers = Gambler.all.order(join_date: :desc).page(params[:page]).per(12)
   end
 
   def show
