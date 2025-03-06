@@ -1,11 +1,24 @@
 <div class="container mt-5">
-  <div class="jumbotron bg-dark text-white">
-    <h1 class="display-4">Welcome to Crypto Casino!</h1>
-    <p class="lead">The destination for you to lose all the money you have.</p>
-    <hr class="my-4">
-    <p>Place your bets on the most exciting cryptocurrencies and track your losses!</p>
-    <a class="btn btn-warning btn-lg" href="<%= cryptocurrencies_path %>" role="button">Explore Crypto Games</a>
+  <div class="jumbotron bg-dark text-white p-5 rounded shadow-lg position-relative overflow-hidden">
+  
+  <div class="position-absolute top-0 start-0 w-100 h-100 opacity-15" style="background: url('https://images.unsplash.com/photo-1596838132731-8dbd59349de9?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') center/cover no-repeat; z-index: 0;"></div>
+  
+  <div class="position-relative" style="z-index: 1;">
+ 
+    <span class="position-absolute top-0 end-0 me-4 mt-3 fs-1 text-warning">
+      <i class="fas fa-coins"></i>
+    </span>
+    
+    <h1 class="display-4 fw-bold mb-3">Welcome to Crypto Casino!</h1>
+    <p class="lead fs-4 text-warning">The destination for you to lose all the money you have.</p>
+    <hr class="my-4 border-warning opacity-75">
+    <p class="mb-4 fs-5">Place your bets on the most exciting cryptocurrencies and track your losses!</p>
+    
+    <a class="btn btn-warning btn-lg px-4 shadow-sm" href="<%= cryptocurrencies_path %>" role="button">
+      <i class="fas fa-dice me-2"></i>Explore Crypto Games
+    </a>
   </div>
+</div>
 
   <div class="row mt-5">
     <div class="col-md-4">
