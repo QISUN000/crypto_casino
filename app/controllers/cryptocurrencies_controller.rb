@@ -1,6 +1,6 @@
 class CryptocurrenciesController < ApplicationController
   def index
-    @cryptocurrencies = Cryptocurrency.all.order(rank: :asc)
+    @cryptocurrencies = Cryptocurrency.order(rank: :asc).page(params[:page]).per(20)
   end
 
   def show
